@@ -151,6 +151,113 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-my-first-try" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/15/my-first-try/">my-first-try</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/15/my-first-try/" class="archive-article-date">
+  	<time datetime="2019-11-15T08:03:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h1><p>较多参考<a href="https://www.jianshu.com/p/9c62a65b6162。" target="_blank" rel="noopener">https://www.jianshu.com/p/9c62a65b6162。</a></p>
+<h2 id="以fork为例"><a href="#以fork为例" class="headerlink" title="以fork为例"></a>以fork为例</h2><p>fork函数的定义在glibc的<code>unistd.h</code>中。</p>
+<p>c语言标准库：<a href="https://github.com/lattera/glibc。" target="_blank" rel="noopener">https://github.com/lattera/glibc。</a></p>
+<p>当用户用C语言编写、运行下列程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fork();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>fork函数会一步步调用其他函数，比如调用ARCH_FORK等函数，最后变成下面这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//位置：sysdeps\unix\sysv\linux\i386\sysdep.h（C标准库）</span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">define</span> INTERNAL_SYSCALL(name, err, nr, args...) \</span></span><br><span class="line">  (&#123;                                          \</span><br><span class="line">    <span class="keyword">register</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> resultvar;                          \</span><br><span class="line">    EXTRAVAR_##nr                                 \</span><br><span class="line">    <span class="keyword">asm</span> <span class="keyword">volatile</span> (                                \</span><br><span class="line">    LOADARGS_##nr                                 \</span><br><span class="line">    <span class="string">"movl %1, %%eax\n\t"</span>                              \</span><br><span class="line">    <span class="string">"int $0x80\n\t"</span>                               \</span><br><span class="line">    RESTOREARGS_##nr                                  \</span><br><span class="line">    : <span class="string">"=a"</span> (resultvar)                                \</span><br><span class="line">    : <span class="string">"i"</span> (__NR_##name) ASMFMT_##nr(args) : <span class="string">"memory"</span>, <span class="string">"cc"</span>);              \</span><br><span class="line">    (<span class="keyword">int</span>) resultvar; &#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>这是C语言标准库写好了的</strong>。C标准库也定义了系统调用号，这个系统调用号是和对应的操作系统的系统调用号必须是相同的，不然调用的函数对不上。在这里就是上面的_<em>NR\</em>##name，它被换成_NR_clone，C标准库定义了<code>#define __NR__clone 120</code>。最后C语言fork函数最核心的就是几条汇编指令，通过<code>int $0x80</code>陷入内核，120存在eax寄存器里面。前面这一堆这些事情都是C标准库实现的。陷入内核后，就根据0x80再查中断向量表的表项，获取系统调用函数表的地址，在120查系统调用函数表对应的表现，获取sys_fork函数的地址，最后执行操作系统fork函数。</p>
+<h2 id="使用syscall函数"><a href="#使用syscall函数" class="headerlink" title="使用syscall函数"></a>使用syscall函数</h2><p>如果不想使用C语言标准库包装的fork函数，可以直接使用syscall(系统调用号)。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;sys/syscall.h&gt;</span><br><span class="line">#include&lt;linux/kernel.h&gt;</span><br><span class="line">#include&lt;unistd.h&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">	int pid=syscall(120);</span><br><span class="line">	printf(&quot;pid=%d\n&quot;,pid);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用C标准库包装的syscall函数。syscall定义在<code>sysdeps/unix/sysv/linux/i386/syscall.S</code>，</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sysdep.h&gt;</span></span></span><br><span class="line">	.<span class="built_in">text</span></span><br><span class="line">ENTRY (syscall)</span><br><span class="line">	PUSHARGS_6		<span class="comment">/* Save register contents.  */</span></span><br><span class="line">	_DOARGS_6(<span class="number">44</span>)		<span class="comment">/* Load arguments.  */</span></span><br><span class="line">	movl <span class="number">20</span>(%esp), %eax	<span class="comment">/* Load syscall number into %eax.  */</span></span><br><span class="line">	ENTER_KERNEL		<span class="comment">/* Do the system call.  */</span></span><br><span class="line">	POPARGS_6		<span class="comment">/* Restore register contents.  */</span></span><br><span class="line">	cmpl $<span class="number">-4095</span>, %eax	<span class="comment">/* Check %eax for error.  */</span></span><br><span class="line">	jae SYSCALL_ERROR_LABEL	<span class="comment">/* Jump to error handler if error.  */</span></span><br><span class="line">	ret			<span class="comment">/* Return to caller.  */</span></span><br><span class="line"></span><br><span class="line">PSEUDO_END (syscall)</span><br></pre></td></tr></table></figure>
+
+<p>使用汇编直接进入操作系统内核。</p>
+<h2 id="如何给Linux增加系统调用？"><a href="#如何给Linux增加系统调用？" class="headerlink" title="如何给Linux增加系统调用？"></a>如何给Linux增加系统调用？</h2><p>比如在linux中增加helloWorld系统调用，系统调用号为333。</p>
+<p>1.在linux内核代码中定义helloWorld系统调用，增加系统调用号，增加系统调用表项。然后重新编译linux内核。</p>
+<p>2.用户用C语言这样使用helloWorld系统调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int main&#123;</span><br><span class="line">	syscall(333);</span><br><span class="line">    reuturn 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果用户想直接像这样调用操作系统的helloWorld系统调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int main&#123;</span><br><span class="line">	helloWorld();</span><br><span class="line">    reuturn 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么，就需要修改C标准库，增加helloWorld函数，像上面的C标准库包装的fork函数一样，最终转换为汇编，进入内核。</p>
+<h2 id="怎样使用xv6的系统调用"><a href="#怎样使用xv6的系统调用" class="headerlink" title="怎样使用xv6的系统调用?"></a>怎样使用xv6的系统调用?</h2><p>xv6内核编译好了，运行起来了。用户在xv6的文件系统上写c程序，想使用系统调用，就必须像<code>initcode.S</code>一样使用系统调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># exec(init, argv)</span><br><span class="line">.globl start</span><br><span class="line">start:</span><br><span class="line">  pushl $argv</span><br><span class="line">  pushl $init</span><br><span class="line">  pushl $0  // where caller pc would be</span><br><span class="line">  movl $SYS_exec, %eax</span><br><span class="line">  int $T_SYSCALL</span><br></pre></td></tr></table></figure>
+
+<p>使用汇编来控制系统调用。不能直接这样使用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	exec(<span class="string">"init"</span>,argv);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为对于C标准库exec对应的系统调用号，和xv6的exec函数对应系统调用号是不一样的。</p>
+<p>除非将xv6的系统调用号和系统调用表改得和Linux的一样。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag article-tag-list-link color5">操作系统</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/15/my-first-try/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -317,6 +424,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color5">操作系统</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
