@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>算法分析与设计 | ZhangLei012</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="回溯法第5章 回溯法1.最大团问题问题：给定无向图G=，V={1,2,…,n}，边集E，求G的最大团。 解：$$是0-1​向量 。 暴力法：$2^n$ 分支限界法：深度优先，从1开始搜索它的邻居， 搜索树是子集树。  $$的含义：已检索的顶点，为1则在团中。 代价函数：目前的团可以扩展为最大团的顶点数上界：$F=C_n+n-k​$，$C_n​$为当前团中的节点数。 界：当前已经求得的最大团的顶点数">
+  <meta name="description" content="回溯法第5章 回溯法1.最大团问题问题：给定无向图G=，V={1,2,…,n}，边集E，求G的最大团。 解：是0-1​向量 。 暴力法：$2^n$ 分支限界法：深度优先，从1开始搜索它的邻居， 搜索树是子集树。 ​$$的含义：已检索的顶点，为1则在团中。  代价函数：目前的团可以扩展为最大团的顶点数上界：$$F=C_n+n-k$$，$$C_n$$为当前团中的节点数。  界：当前已经求得的最大团的顶">
 <meta name="keywords" content="算法分析与设计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法分析与设计">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1&#x2F;index.html">
 <meta property="og:site_name" content="ZhangLei012">
-<meta property="og:description" content="回溯法第5章 回溯法1.最大团问题问题：给定无向图G=，V={1,2,…,n}，边集E，求G的最大团。 解：$$是0-1​向量 。 暴力法：$2^n$ 分支限界法：深度优先，从1开始搜索它的邻居， 搜索树是子集树。  $$的含义：已检索的顶点，为1则在团中。 代价函数：目前的团可以扩展为最大团的顶点数上界：$F=C_n+n-k​$，$C_n​$为当前团中的节点数。 界：当前已经求得的最大团的顶点数">
+<meta property="og:description" content="回溯法第5章 回溯法1.最大团问题问题：给定无向图G=，V={1,2,…,n}，边集E，求G的最大团。 解：是0-1​向量 。 暴力法：$2^n$ 分支限界法：深度优先，从1开始搜索它的邻居， 搜索树是子集树。 ​$$的含义：已检索的顶点，为1则在团中。  代价函数：目前的团可以扩展为最大团的顶点数上界：$$F=C_n+n-k$$，$$C_n$$为当前团中的节点数。  界：当前已经求得的最大团的顶">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-18T13:22:10.933Z">
+<meta property="og:updated_time" content="2019-11-18T13:32:28.750Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="ZhangLei012" type="application/atom+xml">
@@ -180,22 +180,28 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h1><h2 id="第5章-回溯法"><a href="#第5章-回溯法" class="headerlink" title="第5章 回溯法"></a>第5章 回溯法</h2><h3 id="1-最大团问题"><a href="#1-最大团问题" class="headerlink" title="1.最大团问题"></a>1.最大团问题</h3><p>问题：给定无向图G=<V,E>，V={1,2,…,n}，边集E，求G的最大团。</p>
-<p>解：$<x_1,x_2,...,x_k>$是0-1​向量 。</p>
+<p>解：<script type="math/tex"><x_1,x_2,...,x_k></script>是0-1​向量 。</p>
 <p>暴力法：$2^n$</p>
 <p><strong>分支限界法</strong>：深度优先，从1开始搜索它的邻居，</p>
 <p>搜索树是子集树。</p>
-<p> $<x_1,x_2,...,x_k>$的含义：已检索的顶点，为1则在团中。</p>
-<p>代价函数：目前的团可以扩展为最大团的顶点数上界：$F=C_n+n-k​$，$C_n​$为当前团中的节点数。</p>
-<p>界：当前已经求得的最大团的顶点数</p>
-<p><strong>最坏时间复杂度</strong>：$O(n2^n)​$。搜索树中节点数2^n^量级，每个点最多访问其他n-1节点看它是否处于团中。</p>
-<p><strong>搜索树</strong></p>
-<h3 id="2-货郎问题"><a href="#2-货郎问题" class="headerlink" title="2.货郎问题"></a>2.货郎问题</h3><p>问题：</p>
-<ul>
-<li><p>输入： 有穷个城市集合</p>
-<script type="math/tex; mode=display">
-  C=\{c_1,c_2,...,c_n\}</script></li>
-<li><p>输出：解向量</p>
-</li>
+<script type="math/tex; mode=display"><x_1,x_2,...,x_k>​$$的含义：已检索的顶点，为1则在团中。
+
+代价函数：目前的团可以扩展为最大团的顶点数上界：$$F=C_n+n-k$$，$$C_n$$为当前团中的节点数。
+
+界：当前已经求得的最大团的顶点数
+
+**最坏时间复杂度**：$$O(n2^n)$$。搜索树中节点数$$2^n​$$量级，每个点最多访问其他n-1节点看它是否处于团中。
+
+**搜索树**
+
+### 2.货郎问题
+
+问题：
+
+- 输入： 有穷个城市集合</script><pre><code>C=\{c_1,c_2,...,c_n\}
+$$
+</code></pre><ul>
+<li>输出：解向量</li>
 </ul>
 <script type="math/tex; mode=display">
 <1,i_1,i_2,...,i_n></script><p>其中$ i_1,i_2,…,i_n$是 $2,3,…,n$ 的排列。</p>
@@ -207,7 +213,7 @@ L=\sum_{j=1}^{k}{d_j}+l_{i_k}+\sum_{i_j\notin B}{l_{i_j}}</script><p>时间复�
 <p>每个节点O(1)，每条路径O(n)</p>
 <p>最坏时间复杂度O(n!)</p>
 <h2 id="3-圆排列问题"><a href="#3-圆排列问题" class="headerlink" title="3.圆排列问题"></a>3.圆排列问题</h2><p>问题：n个圆排成一列，每个圆直径大于1，求水平长度最小的排列。</p>
-<p>$d_k$含义：第k-1与第k个圆的水平距离</p>
+<p>$d_k$含义：第<script type="math/tex">k-1</script>与第<script type="math/tex">k</script>个圆的水平距离</p>
 <script type="math/tex; mode=display">
 d_k=2\sqrt{r_{k-1}r_k}</script><p>$l_n​$含义：所有n个圆的占用的水平距离。</p>
 <p>$L_n​$即代价函数，它是叶子节点上的值。</p>
@@ -215,16 +221,16 @@ d_k=2\sqrt{r_{k-1}r_k}</script><p>$l_n​$含义：所有n个圆的占用的水�
 l_n=x_k+2\sqrt{r_kr_{k+1}}+2\sqrt{r_{k+1}r_{k+2}}+...+2\sqrt{r_{n-1}r_{n}}+r_n+r_1\ge x_k+2(n-k)r+r+r_1</script><script type="math/tex; mode=display">
 L_n=x_i+(2n-2k+1)r+r_1</script><p>$l_k$含义：前k个圆所占的水平距离。$x_k$含义：第$k$个圆圆心相对于第1个圆圆心的水平距离，$x_1=0$.</p>
 <script type="math/tex; mode=display">
-l_k=x_k+r_k+r_1</script><h2 id="4-连续邮资问题"><a href="#4-连续邮资问题" class="headerlink" title="4.连续邮资问题"></a>4.连续邮资问题</h2><p>问题：设计一种邮票面额系统，对于n种面额$<x_1,x_2,...,x_n>​$，一次一共最多使用m张邮票，使得所能获得的连续面额最大，即所能获得的连续面额<1,2,...,k>的k最大。</p>
+l_k=x_k+r_k+r_1</script><h2 id="4-连续邮资问题"><a href="#4-连续邮资问题" class="headerlink" title="4.连续邮资问题"></a>4.连续邮资问题</h2><p>问题：设计一种邮票面额系统，对于n种面额<script type="math/tex"><x_1,x_2,...,x_n>​</script>，一次一共最多使用m张邮票，使得所能获得的连续面额最大，即所能获得的连续面额<script type="math/tex"><1,2,...,k>​</script>的k最大。</p>
 <p>解决方法：深度优先，特殊之处在于它的节点的分支数量不是固定的，要根据之前的选择计算出来。</p>
-<p> $y_i(j)$的含义：对于面额$<x_1,x_2,...,x_i>$,最多使用$m$张邮票，获取$j$元所需的最小邮票张数。</p>
+<p> $y_i(j)​$的含义：对于面额<script type="math/tex"><x_1,x_2,...,x_i>​</script>,最多使用$m​$张邮票，获取$j​$元所需的最小邮票张数。</p>
 <script type="math/tex; mode=display">
 y_i(j)=\min_{1\leq t\leq m}^{}\{t+y_{i-1}(j-tx_i)\}</script><script type="math/tex; mode=display">
-y_1(j)=j</script><p>$r_i​$的含义：对于面值$<x_1,x_2,...,x_i>​$,一共最多使用张邮m票，所能获得的连续面额中的最大面额。即若$r_i=j​$,则$j+1​$不能由前$i​$个面额的邮票最多使用m张组合出来。</p>
+y_1(j)=j</script><p>$r_i​$的含义：对于面值<script type="math/tex"><x_1,x_2,...,x_i>​</script>,一共最多使用张邮m票，所能获得的连续面额中的最大面额。即若<script type="math/tex">r_i=j​</script>,则<script type="math/tex">j+1​</script>不能由前<script type="math/tex">i​</script>个面额的邮票最多使用m张组合出来。</p>
 <script type="math/tex; mode=display">
-r_i=\min\{j|y_i(j)\leq m,y_i(j+1)\geq m\}</script><p>$x_{i+1}$含义：第i+1种面额的取值范围</p>
-<script type="math/tex; mode=display">
-x_{i+1}\in \{x_i+1,...,r_i+1\}</script><h2 id="5-分辨解是排列树还是子集树"><a href="#5-分辨解是排列树还是子集树" class="headerlink" title="5.分辨解是排列树还是子集树"></a>5.分辨解是排列树还是子集树</h2><p>主要是看解的形式，如果 $x_i$ 的取值是$\{0,1\}$子类的，就是子集树，若取值为$\{1,2,…,n\}$其中一个，则为排列树。</p>
+r_i=\min\{j|y_i(j)\leq m,y_i(j+1)\geq m\}</script><script type="math/tex; mode=display">x_{i+1}$$含义：第$$i+1$$种面额的取值范围</script><p>x_{i+1}\in \{x_i+1,…,r_i+1\}</p>
+<p>$$</p>
+<h2 id="5-分辨解是排列树还是子集树"><a href="#5-分辨解是排列树还是子集树" class="headerlink" title="5.分辨解是排列树还是子集树"></a>5.分辨解是排列树还是子集树</h2><p>主要是看解的形式，如果 $x_i​$ 的取值是$\{0,1\}​$子类的，就是子集树，若取值为<script type="math/tex">\{1,2,...,n\}​</script>其中一个，则为排列树。</p>
 <h1 id="第六章-线性规划"><a href="#第六章-线性规划" class="headerlink" title="第六章 线性规划"></a>第六章 线性规划</h1><h2 id="1-线性规划模型"><a href="#1-线性规划模型" class="headerlink" title="1.线性规划模型"></a>1.线性规划模型</h2><p>1）生产计划问题：有一定的原料库存，生产不同的产品，产品所需原料数和产生的利润不一样，怎样分配原料使得生产的产品利润最大？</p>
 <p>2）投资组合问题：一定资本进行投资，有多个项目，每个项目年收益不一样，有各种约束条件，如何投资？</p>
 <p>3）运输费用问题：两个工厂，三个分销中心，每个工厂到每个分销中心的运输费用不一样，每个分销中心的分销数量不一样，每个工厂的生产量不一样，如何将运输各个工厂生产的产品到各个分销中心使得运输费用最小？</p>
