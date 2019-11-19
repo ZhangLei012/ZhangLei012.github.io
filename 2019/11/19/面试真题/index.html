@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 操作系统 | ZhangLei012</title>
+  <title>面试真题 | ZhangLei012</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ZhangLei012">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F&#x2F;index.html">
+  <meta name="description" content="腾讯2018年春招第四题小Q有X首长度为A的不同的歌和Y首长度为B的不同的歌，现在小Q想用这些歌组成一个总长度正好为K的歌单，每首歌最多只能在歌单中出现一次，在不考虑歌单内歌曲的先后顺序的情况下，请问有多少种组成歌单的方法。 输入描述:123每个输入包含一个测试用例。每个测试用例的第一行包含一个整数，表示歌单的总长度K(1&amp;lt;=K&amp;lt;=1000)。接下来的一行包含四个正整数，分别表示歌的第">
+<meta name="keywords" content="面试真题题解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试真题">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;%E9%9D%A2%E8%AF%95%E7%9C%9F%E9%A2%98&#x2F;index.html">
 <meta property="og:site_name" content="ZhangLei012">
+<meta property="og:description" content="腾讯2018年春招第四题小Q有X首长度为A的不同的歌和Y首长度为B的不同的歌，现在小Q想用这些歌组成一个总长度正好为K的歌单，每首歌最多只能在歌单中出现一次，在不考虑歌单内歌曲的先后顺序的情况下，请问有多少种组成歌单的方法。 输入描述:123每个输入包含一个测试用例。每个测试用例的第一行包含一个整数，表示歌单的总长度K(1&amp;lt;=K&amp;lt;=1000)。接下来的一行包含四个正整数，分别表示歌的第">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-19T09:02:17.154Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="ZhangLei012" type="application/atom+xml">
@@ -155,60 +159,183 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-面试真题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/15/my-first-try/" class="archive-article-date">
-  	<time datetime="2019-11-15T08:03:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/15/my-first-try/">my-first-try</a>
+    <h1 class="article-title" itemprop="name">
+      面试真题
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/11/19/%E9%9D%A2%E8%AF%95%E7%9C%9F%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2019-11-19T08:41:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="腾讯2018年春招第四题"><a href="#腾讯2018年春招第四题" class="headerlink" title="腾讯2018年春招第四题"></a>腾讯2018年春招第四题</h2><p>小Q有X首长度为A的不同的歌和Y首长度为B的不同的歌，现在小Q想用这些歌组成一个总长度正好为K的歌单，每首歌最多只能在歌单中出现一次，在不考虑歌单内歌曲的先后顺序的情况下，请问有多少种组成歌单的方法。</p>
+<h5 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述:"></a><strong>输入描述:</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每个输入包含一个测试用例。</span><br><span class="line">每个测试用例的第一行包含一个整数，表示歌单的总长度K(1&lt;=K&lt;=1000)。</span><br><span class="line">接下来的一行包含四个正整数，分别表示歌的第一种长度A(A&lt;=10)和数量X(X&lt;=100)以及歌的第二种长度B(B&lt;=10)和数量Y(Y&lt;=100)。保证A不等于B。</span><br></pre></td></tr></table></figure>
+<h5 id="输出描述"><a href="#输出描述" class="headerlink" title="输出描述:"></a><strong>输出描述:</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出一个整数,表示组成歌单的方法取模。因为答案可能会很大,输出对1000000007取模的结果。</span><br></pre></td></tr></table></figure>
+<h5 id="输入例子1"><a href="#输入例子1" class="headerlink" title="输入例子1:"></a><strong>输入例子1:</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">2 3 3 3</span><br></pre></td></tr></table></figure>
+<h5 id="输出例子1"><a href="#输出例子1" class="headerlink" title="输出例子1:"></a><strong>输出例子1:</strong></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">9</span><br></pre></td></tr></table></figure>
+<p>知识点：整数规划，求组合数，取模</p>
+<h3 id="整数规划"><a href="#整数规划" class="headerlink" title="整数规划"></a>整数规划</h3><p>求解公式<script type="math/tex">Ax+By=K</script>，通过for循环，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solveEqut</span><span class="params">(<span class="keyword">int</span> A, <span class="keyword">int</span> X, <span class="keyword">int</span> B, <span class="keyword">int</span> Y, <span class="keyword">int</span> K, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; xy)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt;= X; x++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (A*x &gt; K) &#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (((K - A * x) % B) == <span class="number">0</span> &amp;&amp; (K - A * x) / B &lt;= Y) &#123;</span><br><span class="line">			<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; oneXy;</span><br><span class="line">			oneXy.push_back(x);</span><br><span class="line">			oneXy.push_back((K - A * x) / B);</span><br><span class="line">			<span class="comment">//cout &lt;&lt; x &lt;&lt; " " &lt;&lt; (K - A * x) / B &lt;&lt; endl;</span></span><br><span class="line">			xy.push_back(oneXy);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="求组合数"><a href="#求组合数" class="headerlink" title="求组合数"></a>求组合数</h3><p>通过杨辉三角：</p>
+<script type="math/tex; mode=display">
+C_{n}^{m}=C_{n-1}^{m}+C_{n-1}^{m-1}</script><script type="math/tex; mode=display">C_{0}^{0}=1,C_{0}^{i}=0,C_{i}^{0}=1,i=1,2,3...</script><p>运用这个公式，动态规划。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">105</span>;</span><br><span class="line"><span class="keyword">long</span> Cnm[MAXN][MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Cnm[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;<span class="comment">//非常关键</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; MAXN; ++i) &#123;</span><br><span class="line">		Cnm[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		Cnm[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; MAXN; ++i) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; MAXN; ++j) &#123;</span><br><span class="line">			Cnm[i][j] = (Cnm[i - <span class="number">1</span>][j] + Cnm[i - <span class="number">1</span>][j - <span class="number">1</span>]) % MOD;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="求模"><a href="#求模" class="headerlink" title="求模"></a>求模</h3><script type="math/tex; mode=display">
+(a*b)\pmod m=((a\pmod m)*(b\pmod m))\pmod m</script><p>证明:</p>
+<script type="math/tex; mode=display">
+设a=m*x+a_0,b=m*y+b_0,则a*b=m*m*x*y+m*b_0*x+m*a_0*y+a_0*b_0</script><p>由上取模可知相等。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> K;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; K;</span><br><span class="line">	<span class="keyword">int</span> A, X, B, Y;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; A &gt;&gt; X &gt;&gt; B &gt;&gt; Y;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; xy;</span><br><span class="line">	init();</span><br><span class="line">	solveEqut(A, X, B, Y, K, xy);</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; xy.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">		sum += (Cnm[X][xy[i][<span class="number">0</span>]] * Cnm[Y][xy[i][<span class="number">1</span>]]) % MOD;</span><br><span class="line">		sum %= MOD;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; sum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" target="_blank" rel="noopener" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag article-tag-list-link color5">操作系统</a>
+        			<a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag article-tag-list-link color2">面试真题题解</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/19/%E9%9D%A2%E8%AF%95%E7%9C%9F%E9%A2%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/11/18/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">算法分析与设计</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -231,9 +358,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
