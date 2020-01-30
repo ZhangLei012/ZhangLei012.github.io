@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZhangLei012">
 <meta property="og:description" content="Go基础 go语言不支持重载，变量类型在变量名之后，支持多值返回  变量、函数定义，:= 不能在函数体外使用   12345var x float64 = 3.2func add(x, y int) int &amp;#123;    return x+y&amp;#125;&#x2F;&#x2F;没有明确初始值的变量声明会被赋予它们的 零值（false，0，&quot;&quot;）。  go不支持隐式类型转换，比如整型和浮点型是不能直接进行相加的，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-16T13:56:02.942Z">
+<meta property="og:updated_time" content="2020-01-17T09:13:44.468Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="ZhangLei012" type="application/atom+xml">
@@ -201,13 +201,18 @@
   <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;<span class="comment">//s是切片，若s := [6]int&#123;2, 3, 5, 7, 11, 13&#125;，则s是数组	</span></span><br><span class="line">	s1 := s	</span><br><span class="line">	s = s[<span class="number">1</span>:<span class="number">4</span>]<span class="comment">//切片是底层数据的一段引用</span></span><br><span class="line">	s[<span class="number">0</span>] = <span class="number">100</span><span class="comment">//此时s1也发生了改变	</span></span><br><span class="line">	fmt.Println(s)</span><br><span class="line">	fmt.Println(s1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>切片很奇怪，</p>
- <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> slice <span class="keyword">struct</span> &#123;</span><br><span class="line">    first *T</span><br><span class="line">    <span class="built_in">len</span> <span class="keyword">int</span> </span><br><span class="line">    <span class="built_in">cap</span> <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> slice <span class="keyword">struct</span> &#123;</span><br><span class="line">    first *T</span><br><span class="line">    <span class="built_in">len</span> <span class="keyword">int</span> </span><br><span class="line">    <span class="built_in">cap</span> <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>切片的运算要根据 T 和 cap来计算，起始下标不能超过cap-1</strong></p>
   <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;</span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 截取切片使其长度为 0</span></span><br><span class="line">	s = s[<span class="number">1</span>:<span class="number">2</span>]</span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 拓展其长度</span></span><br><span class="line">    s = s[:<span class="number">4</span>]<span class="comment">//改为s = s[3:4],感觉两次运行很奇怪 自己的解释：使用切片时，先对切片进行切片或者扩展，如果不能，就尝试在原数组切片</span></span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 舍弃前两个值</span></span><br><span class="line">	s = s[<span class="number">2</span>:]</span><br><span class="line">	printSlice(s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSlice</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d %v\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s), s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
+</ul>
+<ul>
+<li>函数值</li>
+<li><strong>闭包</strong>，返回一个匿名函数，它与一些变量绑定在一起。</li>
+<li><strong>接口类型</strong> 是由一组方法签名定义的集合</li>
 </ul>
 
       
@@ -312,6 +317,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/01/30/webrtc%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          webrtc与服务器学习笔记
+        
+      </div>
+    </a>
   
   
     <a href="/2020/01/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%8A%A0%E5%87%8F%E6%B3%95%E8%AE%A1%E7%AE%97/" id="article-nav-older" class="article-nav-link-wrap">
@@ -460,6 +474,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color1">服务器编程</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color5">Go语言</a>

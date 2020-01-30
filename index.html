@@ -157,6 +157,130 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-webrtc与服务器学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/30/webrtc%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">webrtc与服务器学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/30/webrtc%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2020-01-30T08:43:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Signal-2020-01-30"><a href="#Signal-2020-01-30" class="headerlink" title="Signal     2020.01.30"></a>Signal     2020.01.30</h2><p>参考：<a href="https://blog.csdn.net/weibo1230123/article/details/81505152" target="_blank" rel="noopener">https://blog.csdn.net/weibo1230123/article/details/81505152</a></p>
+<ul>
+<li><p>signal函数</p>
+<ul>
+<li><p>功能：设置对某种信号的处理方式</p>
+</li>
+<li><p>定义:</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*<span class="keyword">sighandler_t</span>)</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>函数指针：</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>sigaction函数</p>
+</li>
+</ul>
+<h2 id="创建后台进程"><a href="#创建后台进程" class="headerlink" title="创建后台进程"></a>创建后台进程</h2><ul>
+<li><p>fork方式</p>
+<ul>
+<li><p>fork创建一个子进程，父进程退出，子进程成为孤儿进程，被init进程接管</p>
+</li>
+<li><p>通过setsid设置进程会话（只结束父进程的话session id并没有变化）</p>
+<ul>
+<li><p><strong>session</strong>: 会话是由其中的进程建立的，该进程叫做会话的领导进程(session leader)。会话领导进程的PID成为识别会话的SID(session ID)。会话中的每个进程组称为一个工作(job)。会话可以有一个进程组成为会话的前台工作(foreground)，而其他的进程组是后台工作(background)。每个会话可以连接一个控制终端(control  terminal)。当控制终端有输入输出时，都传递给该会话的前台进程组。由终端产生的信号，比如CTRL+Z， CTRL+\，会传递到前台进程组。</p>
+<p>  <strong>会话的意义在于将多个工作囊括在一个终端，并取其中的一个工作作为前台，来直接接收该终端的输入输出以及终端信号。 其他工作在后台运行。</strong></p>
+<p>  进程组(工作)的概念较为简单易懂。而会话主要是针对一个终端建立的。当我们打开多个终端窗口时，实际上就创建了多个终端会话。每个会话都会有自己的前台工作和后台工作。这样，我们就为进程增加了管理和运行的层次。在没有图形化界面的时代，会话允许用户通过shell进行多层次的进程发起和管理。比如说，我可以通过shell发起多个后台工作，而此时标准输入输出并不被占据，我依然可以继续其它的工作。如今，图形化界面可以帮助我们解决这一需求，但工作组和会话机制依然在Linux的许多地方应用。</p>
+</li>
+<li><p><strong>setsid</strong>会创建一个新的会话（session），调用进程会成为会话的领导者以及进程组的领导者。刚创建时，调用进程是会话和进程中的唯一进程，新的会话没有控制终端。</p>
+</li>
+<li><p><strong>dup，dup2，dup3会复制一个文件描述符</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p>将工作目录切换到根目录下</p>
+</li>
+<li><p>将标准输入、输出、出错输出到 /dev/null</p>
+</li>
+</ul>
+</li>
+<li><p>daemon方式</p>
+</li>
+<li><p>linux使用：</p>
+<ul>
+<li>在vim中通过<strong>:!man 2 xxx</strong>来查看手册</li>
+<li>通过<strong>ps -ef | grep xxx</strong>或者<strong>ps pid</strong>来查看进程信息</li>
+<li>通过<strong>kill -9 xxx yyy</strong>来杀死进程</li>
+<li>ps -aux 列出所有进程信息</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag article-tag-list-link color1">服务器编程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/30/webrtc%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-learn-Goo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -199,13 +323,18 @@
   <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;<span class="comment">//s是切片，若s := [6]int&#123;2, 3, 5, 7, 11, 13&#125;，则s是数组	</span></span><br><span class="line">	s1 := s	</span><br><span class="line">	s = s[<span class="number">1</span>:<span class="number">4</span>]<span class="comment">//切片是底层数据的一段引用</span></span><br><span class="line">	s[<span class="number">0</span>] = <span class="number">100</span><span class="comment">//此时s1也发生了改变	</span></span><br><span class="line">	fmt.Println(s)</span><br><span class="line">	fmt.Println(s1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>切片很奇怪，</p>
- <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> slice <span class="keyword">struct</span> &#123;</span><br><span class="line">    first *T</span><br><span class="line">    <span class="built_in">len</span> <span class="keyword">int</span> </span><br><span class="line">    <span class="built_in">cap</span> <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> slice <span class="keyword">struct</span> &#123;</span><br><span class="line">    first *T</span><br><span class="line">    <span class="built_in">len</span> <span class="keyword">int</span> </span><br><span class="line">    <span class="built_in">cap</span> <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>切片的运算要根据 T 和 cap来计算，起始下标不能超过cap-1</strong></p>
   <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;</span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 截取切片使其长度为 0</span></span><br><span class="line">	s = s[<span class="number">1</span>:<span class="number">2</span>]</span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 拓展其长度</span></span><br><span class="line">    s = s[:<span class="number">4</span>]<span class="comment">//改为s = s[3:4],感觉两次运行很奇怪 自己的解释：使用切片时，先对切片进行切片或者扩展，如果不能，就尝试在原数组切片</span></span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 舍弃前两个值</span></span><br><span class="line">	s = s[<span class="number">2</span>:]</span><br><span class="line">	printSlice(s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSlice</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d %v\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s), s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
+</ul>
+<ul>
+<li>函数值</li>
+<li><strong>闭包</strong>，返回一个匿名函数，它与一些变量绑定在一起。</li>
+<li><strong>接口类型</strong> 是由一组方法签名定义的集合</li>
 </ul>
 
       
@@ -764,6 +893,68 @@ You may assume beginWord and endWord are non-empty and are not the same.
   <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board,<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="built_in">string</span> s,TrieNode* trie,<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; res)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(trie-&gt;isWord)&#123;<span class="comment">//是字符串结尾</span></span><br><span class="line">            res.push_back(s);</span><br><span class="line">            trie-&gt;isWord=<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(x&lt;<span class="number">0</span>||x&gt;=board.<span class="built_in">size</span>()||y&lt;<span class="number">0</span>||y&gt;=board[<span class="number">0</span>].<span class="built_in">size</span>()||board[x][y]==<span class="string">'#'</span>)&#123;<span class="comment">//到达边界或者遍历过</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(<span class="literal">NULL</span>==trie-&gt;children[board[x][y]-<span class="string">'a'</span>])&#123;<span class="comment">//前缀不符合</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">char</span> restore=board[x][y];</span><br><span class="line">        board[x][y]=<span class="string">'#'</span>;<span class="comment">//通过修改原矩阵来避免重复遍历</span></span><br><span class="line">        DFS(board,x<span class="number">-1</span>,y,s+restore,trie-&gt;children[restore-<span class="string">'a'</span>],res);</span><br><span class="line">        DFS(board,x+<span class="number">1</span>,y,s+restore,trie-&gt;children[restore-<span class="string">'a'</span>],res);</span><br><span class="line">        DFS(board,x,y<span class="number">-1</span>,s+restore,trie-&gt;children[restore-<span class="string">'a'</span>],res);</span><br><span class="line">        DFS(board,x,y+<span class="number">1</span>,s+restore,trie-&gt;children[restore-<span class="string">'a'</span>],res);</span><br><span class="line">        board[x][y]=restore;     </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; findWords(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</span><br><span class="line">        <span class="keyword">if</span>(board.empty())&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt; visited(board.<span class="built_in">size</span>(),<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(board[<span class="number">0</span>].<span class="built_in">size</span>(),<span class="literal">false</span>));</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>,<span class="keyword">bool</span>&gt; record;</span><br><span class="line">        Trie* trie=<span class="keyword">new</span> Trie();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; item:words)&#123;</span><br><span class="line">            trie-&gt;insert(item);<span class="comment">//建立字典树</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;board.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;board[<span class="number">0</span>].<span class="built_in">size</span>();j++)&#123;</span><br><span class="line">                DFS(board,i,j,<span class="string">""</span>,trie-&gt;root,res);<span class="comment">//遍历每一条路径</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//sort(res.begin(),res.end());</span></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<pre><code>## 5. Longest Palindrome Substring      2020.1.17
+
+Given a string **s**, find the longest palindromic substring in **s**. You may assume that the maximum length of **s** is 1000.
+
+### 马拉车算法！
+
+马拉车的核心思想：运用对称性和历史记录。
+
+先预处理，增加头、尾、中间字符，使字符串变为奇字符串。
+
+构建最长半径数组p[n]，p[i]表示以i为中心的最长回文串的半径（包括字符串s[i]）。
+
+id表示当前最右回文串的中心，mx表示当前最右回文串的最后一个字符的下一个字符的位置。
+
+核心思想，也是一种动态规划，对于p[i]，有以下两种情况：
+
+j为i关于id的对称的位置，若mx&gt;i，若分mx-i&gt;p[2*id-i]，则p[i]=p[2\*id-i]，否则p[i]=mx-i；过mx&lt;=i，则p[i]=1。
+
+确定p[i]的初值后，再往两边扩展。若i+p[i]&gt;mx，则id=i,mx=i+p[i]。同时更新最大长度。
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.length()&lt;<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//预处理</span></span><br><span class="line">        <span class="keyword">int</span> n=s.length()+s.length()+<span class="number">1</span>+<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">char</span>* s1=<span class="keyword">new</span> <span class="keyword">char</span>[n];</span><br><span class="line">        s1[<span class="number">0</span>]=<span class="string">'$'</span>;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++,j=j+<span class="number">2</span>)&#123;</span><br><span class="line">            s1[j]=<span class="string">'#'</span>;</span><br><span class="line">            s1[j+<span class="number">1</span>]=s[i];</span><br><span class="line">        &#125;</span><br><span class="line">        s1[j+<span class="number">1</span>]=<span class="string">'#'</span>;</span><br><span class="line">        s1[j+<span class="number">2</span>]=<span class="string">'@'</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//变量赋初值</span></span><br><span class="line">        <span class="keyword">int</span> id=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> mx=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> maxLength=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> index=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>* p=<span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        p[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;n<span class="number">-1</span>;++j)&#123;</span><br><span class="line">            <span class="comment">//根据历史记录确定初值</span></span><br><span class="line">            p[j]=mx&gt;j?<span class="built_in">min</span>(p[<span class="number">2</span>*id-j],mx-j):<span class="number">1</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//往两边扩展</span></span><br><span class="line">            <span class="keyword">while</span>(s1[j+p[j]]==s1[j-p[j]])&#123;</span><br><span class="line">                p[j]++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//右边界更新</span></span><br><span class="line">            <span class="keyword">if</span>(mx&lt;j+p[j])&#123;</span><br><span class="line">                mx=p[j]+j;</span><br><span class="line">                id=j;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(maxLength&lt;p[j]<span class="number">-1</span>)&#123;</span><br><span class="line">                maxLength=p[j]<span class="number">-1</span>;</span><br><span class="line">                index=j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//起始位置计算</span></span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">begin</span>=(index-p[index])/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> s.substr(<span class="built_in">begin</span>,maxLength);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+## 214. Shortest Palindrome
+
+Given a string ***s***,  you are allowed to convert it to a palindrome by adding characters in  front of it. Find and return the shortest palindrome you can find by  performing this transformation.
+
+**Example 1:**
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;aacecaaa&quot;</span><br><span class="line">Output: &quot;aaacecaaa&quot;</span><br></pre></td></tr></table></figure>
+
+**Example 2:**
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;abcd&quot;</span><br><span class="line">Output: &quot;dcbabcd&quot;</span><br></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><p>马拉车算法的应用，只要确定包含第一个字符的最长字串的长度就可以。</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">shortestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//init</span></span><br><span class="line">        <span class="keyword">int</span> n=s.length()+s.length()+<span class="number">1</span>+<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">char</span>* t=<span class="keyword">new</span> <span class="keyword">char</span>[n];</span><br><span class="line">        t[<span class="number">0</span>]=<span class="string">'$'</span>;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;s.length();++j,i=i+<span class="number">2</span>)&#123;</span><br><span class="line">            t[i]=<span class="string">'#'</span>;</span><br><span class="line">            t[i+<span class="number">1</span>]=s[j];</span><br><span class="line">        &#125;</span><br><span class="line">        t[i]=<span class="string">'#'</span>;</span><br><span class="line">        t[i+<span class="number">1</span>]=<span class="string">'@'</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//init id,mx,p[0],index,maxLen</span></span><br><span class="line">        <span class="keyword">int</span> id=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> mx=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span>* p=<span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        p[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> maxLen=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> index=<span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="comment">//通过对称性和历史记录来更新当前值，p[j]++最多运行了n次</span></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">            p[i]=mx&gt;i?<span class="built_in">min</span>(p[<span class="number">2</span>*id-i],mx-i):<span class="number">1</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span>(t[i+p[i]]==t[i-p[i]])&#123;</span><br><span class="line">                p[i]++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(mx&lt;i+p[i])&#123;</span><br><span class="line">                mx=i+p[i];</span><br><span class="line">                id=i;</span><br><span class="line">            &#125; </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(maxLen&lt;(p[i]<span class="number">-1</span>)&amp;&amp;((i-p[i])/<span class="number">2</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">                maxLen=p[i]<span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">string</span> rightPart=s.substr(maxLen,s.length()-maxLen);</span><br><span class="line">        <span class="comment">//cout&lt;&lt;rightPart&lt;&lt;endl;</span></span><br><span class="line">        reverse(rightPart.<span class="built_in">begin</span>(),rightPart.<span class="built_in">end</span>());</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> rightPart+s;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Missing-Number-2020-01-22"><a href="#Missing-Number-2020-01-22" class="headerlink" title="Missing Number     2020.01.22"></a>Missing Number     2020.01.22</h2></li>
+<li><p>给定一数组，有n个数，每个数都属于<script type="math/tex">\{0,1,2,...,n\}</script>,有且仅有一个数的出现次数大于1次，求该数。</p>
+<ul>
+<li>思路：分治法，二分查找，每次遍历，看小于该数的数有多少个，等于该数的数有几个，若等于的个数大于1，则返回该数。若小于的数个数大于等于该数，则代求的数在小于的数中。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findDuplicate</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(nums)&lt;= <span class="number">1</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//二分法，不适用递归，直接迭代</span></span><br><span class="line">    left := <span class="number">1</span></span><br><span class="line">    right := <span class="built_in">len</span>(nums)<span class="number">-1</span></span><br><span class="line">    <span class="keyword">for</span> left &lt;= right&#123;</span><br><span class="line">        mid := (left + right) / <span class="number">2</span></span><br><span class="line">        fmt.Println(mid)</span><br><span class="line">        smaller := <span class="number">0</span></span><br><span class="line">        equal := <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> _,val := <span class="keyword">range</span> nums&#123;</span><br><span class="line">            <span class="keyword">if</span> val &lt; mid&#123;</span><br><span class="line">                smaller++</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> val == mid&#123;</span><br><span class="line">                equal++</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> equal &gt; <span class="number">1</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> smaller &gt;= mid &#123;</span><br><span class="line">            right = mid - <span class="number">1</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            left = mid + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="223-Rectangle-Area"><a href="#223-Rectangle-Area" class="headerlink" title="223.Rectangle Area"></a>223.Rectangle Area</h2><p>Find the total area covered by two <strong>rectilinear</strong> rectangles in a <strong>2D</strong> plane.</p>
+<p>Each rectangle is defined by its bottom left corner and top right corner as shown in the figure.</p>
+<p><img src="https://assets.leetcode.com/uploads/2018/10/22/rectangle_area.png" alt="Rectangle Area"></p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: A = -3, B = 0, C = 3, D = 4, E = 0, F = -1, G = 9, H = 2</span><br><span class="line">Output: 45</span><br></pre></td></tr></table></figure>
+<ul>
+<li>思路：先计算重叠部分的面积，然后总面积减去重叠部分的面积。使用分类讨论，在中间，在左边，在右边。可以通过对称性减少代码。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">min</span><span class="params">(x <span class="keyword">int</span>, y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x&lt;y&#123;</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">max</span><span class="params">(x <span class="keyword">int</span>, y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x&gt;y&#123;</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> y</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">computeArea</span><span class="params">(A <span class="keyword">int</span>, B <span class="keyword">int</span>, C <span class="keyword">int</span>, D <span class="keyword">int</span>, E <span class="keyword">int</span>, F <span class="keyword">int</span>, G <span class="keyword">int</span>, H <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (C-A)*(D-B)+(G-E)*(H-F)-computeCommon(A,B,C,D,E,F,G,H)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">computeCommon</span><span class="params">(A <span class="keyword">int</span>, B <span class="keyword">int</span>, C <span class="keyword">int</span>, D <span class="keyword">int</span>, E <span class="keyword">int</span>, F <span class="keyword">int</span>, G <span class="keyword">int</span>, H <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> A&lt;=E &amp;&amp; E&lt;=C &#123;<span class="comment">//位于中间</span></span><br><span class="line">        <span class="keyword">if</span> B&lt;=F &amp;&amp; F&lt;=D &#123;</span><br><span class="line">            <span class="keyword">return</span> (min(D,H)-F)*(min(C,G)-E)</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> F&lt;=B&#123;</span><br><span class="line">            <span class="keyword">return</span> max(<span class="number">0</span>,(min(D,H)-B)*(min(C,G)-E))</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> E &lt; A&#123;</span><br><span class="line">        <span class="keyword">if</span> A&lt;G&#123;</span><br><span class="line">            <span class="keyword">return</span> computeCommon(E,F,G,H,A,B,C,D)<span class="comment">//对称性</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="并查集集锦！"><a href="#并查集集锦！" class="headerlink" title="并查集集锦！"></a>并查集集锦！</h1><p>并查集问题：可以处理聚类问题！图论题目。主要有：</p>
+<ul>
+<li>初始化操作：parent全部置为本身，rank全部为1</li>
+<li>find 查找它所属于的类</li>
+<li>union 合并，将一棵树插到另一棵树上，小树插到大树上</li>
+</ul>
+<h2 id="547-Friend-Circles"><a href="#547-Friend-Circles" class="headerlink" title="547.Friend Circles"></a>547.Friend Circles</h2><p>求有多少个学生团体。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line">[[1,1,0],</span><br><span class="line"> [1,1,0],</span><br><span class="line"> [0,0,1]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation:The 0th and 1st students are direct friends, so they are in a friend circle. </span><br><span class="line">The 2nd student himself is in a friend circle. So return 2.</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">find</span><span class="params">(i <span class="keyword">int</span>,parent []<span class="keyword">int</span>)</span><span class="title">int</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> parent[i]!=i&#123;</span><br><span class="line">        i=parent[i]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">union</span><span class="params">(i <span class="keyword">int</span>, j <span class="keyword">int</span>, parent []<span class="keyword">int</span>, rank []<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">    pi := find(i,parent)</span><br><span class="line">    pj := find(j,parent)</span><br><span class="line">    <span class="keyword">if</span> pi == pj &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> rank[pi]&gt;rank[pj] &#123;</span><br><span class="line">        parent[pj] = pi</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> rank[pi]==rank[pj]&#123;</span><br><span class="line">        rank[pi]++</span><br><span class="line">        parent[pj]=pi</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        parent[pi]=pj</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findCircleNum</span><span class="params">(M [][]<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(M)==<span class="number">0</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    parent := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="built_in">len</span>(M[<span class="number">0</span>]))</span><br><span class="line">    rank := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="built_in">len</span>(M[<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(parent);i++&#123;</span><br><span class="line">        parent[i]=i</span><br><span class="line">        rank[i]=<span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(M[<span class="number">0</span>]);i++&#123;</span><br><span class="line">        <span class="keyword">for</span> j:=i+<span class="number">1</span>;j&lt;<span class="built_in">len</span>(M[<span class="number">0</span>]);j++&#123;</span><br><span class="line">            <span class="keyword">if</span> M[i][j]==<span class="number">1</span>&#123;</span><br><span class="line">                union(i,j,parent,rank)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    count:=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(parent);i++&#123;</span><br><span class="line">        <span class="keyword">if</span> parent[i]==i&#123;</span><br><span class="line">            count++</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
 
@@ -817,19 +1008,19 @@ You may assume beginWord and endWord are non-empty and are not the same.
 
 
   
-    <article id="post-my-first-try" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-系统调用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/15/my-first-try/">my-first-try</a>
+      <a class="article-title" href="/2019/11/15/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">系统调用</a>
     </h1>
   
 
         
-        <a href="/2019/11/15/my-first-try/" class="archive-article-date">
+        <a href="/2019/11/15/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" class="archive-article-date">
   	<time datetime="2019-11-15T08:03:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-15</time>
 </a>
         
@@ -886,7 +1077,7 @@ You may assume beginWord and endWord are non-empty and are not the same.
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/15/my-first-try/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/11/15/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/">展开全文 >></a>
         </p>
       
 
@@ -1099,6 +1290,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color1">服务器编程</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color5">Go语言</a>
