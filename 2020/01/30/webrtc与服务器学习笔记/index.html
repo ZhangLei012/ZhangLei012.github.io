@@ -8,16 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>webrtc与服务器学习笔记 | ZhangLei012</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Signal     2020.01.30参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weibo1230123&#x2F;article&#x2F;details&#x2F;81505152  signal函数  功能：设置对某种信号的处理方式  定义:   12#include&amp;lt;signal.h&amp;gt;typedef void (*sighandler_t)(int);  函数指针：     sigaction函">
+  <meta name="description" content="Signal     2020.01.30-2020.01.31参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weibo1230123&#x2F;article&#x2F;details&#x2F;81505152  signal函数  功能：设置对某种信号的处理方式  定义:   123#include&amp;lt;signal.h&amp;gt;typedef void (*sighandler_t)(int);&#x2F;&#x2F;sighandl">
 <meta name="keywords" content="服务器编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webrtc与服务器学习笔记">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;30&#x2F;webrtc%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0&#x2F;index.html">
 <meta property="og:site_name" content="ZhangLei012">
-<meta property="og:description" content="Signal     2020.01.30参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weibo1230123&#x2F;article&#x2F;details&#x2F;81505152  signal函数  功能：设置对某种信号的处理方式  定义:   12#include&amp;lt;signal.h&amp;gt;typedef void (*sighandler_t)(int);  函数指针：     sigaction函">
+<meta property="og:description" content="Signal     2020.01.30-2020.01.31参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weibo1230123&#x2F;article&#x2F;details&#x2F;81505152  signal函数  功能：设置对某种信号的处理方式  定义:   123#include&amp;lt;signal.h&amp;gt;typedef void (*sighandler_t)(int);&#x2F;&#x2F;sighandl">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-30T10:54:22.961Z">
+<meta property="og:image" content="c:&#x2F;Users&#x2F;13094&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1580555019354.png">
+<meta property="og:updated_time" content="2020-02-01T13:01:47.118Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:&#x2F;Users&#x2F;13094&#x2F;AppData&#x2F;Roaming&#x2F;Typora&#x2F;typora-user-images&#x2F;1580555019354.png">
   
     <link rel="alternative" href="/atom.xml" title="ZhangLei012" type="application/atom+xml">
   
@@ -179,17 +181,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Signal-2020-01-30"><a href="#Signal-2020-01-30" class="headerlink" title="Signal     2020.01.30"></a>Signal     2020.01.30</h2><p>参考：<a href="https://blog.csdn.net/weibo1230123/article/details/81505152" target="_blank" rel="noopener">https://blog.csdn.net/weibo1230123/article/details/81505152</a></p>
+        <h2 id="Signal-2020-01-30-2020-01-31"><a href="#Signal-2020-01-30-2020-01-31" class="headerlink" title="Signal     2020.01.30-2020.01.31"></a>Signal     2020.01.30-2020.01.31</h2><p>参考：<a href="https://blog.csdn.net/weibo1230123/article/details/81505152" target="_blank" rel="noopener">https://blog.csdn.net/weibo1230123/article/details/81505152</a></p>
 <ul>
 <li><p>signal函数</p>
 <ul>
 <li><p>功能：设置对某种信号的处理方式</p>
 </li>
 <li><p>定义:</p>
-  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*<span class="keyword">sighandler_t</span>)</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*<span class="keyword">sighandler_t</span>)</span><span class="params">(<span class="keyword">int</span>)</span></span>;<span class="comment">//sighandler_t 表示函数指针类型</span></span><br><span class="line"><span class="keyword">sighandler_t</span> signal(<span class="keyword">int</span> signum, <span class="keyword">sighandler_t</span> handler)</span><br></pre></td></tr></table></figure>
 <ul>
-<li>函数指针：</li>
+<li><p>函数指针：函数指针是一个指向函数的指针。它本身代表一个内存单元，保存的是另一个函数的首地址。</p>
+<ul>
+<li><p>格式为 <strong>返回值类型  （*指针名）（参数表）</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> (*funcPointer)(<span class="keyword">int</span>,<span class="keyword">int</span>);</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	funcPointer = add;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (*funcPointer)(<span class="number">1</span>, <span class="number">2</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过<strong>typedef给固定格式的函数指针起一个别名</strong>，这样函数指针就能像int、double类型一样定义。</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*funcPointer)</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>;<span class="comment">//funcPointer 就是 int (*)(int, int)型函数指针的名字</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">multiply</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x*y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	funcPointer fp1 = add;</span><br><span class="line">    funcPointer fp2 = multiply;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (*fp1)(<span class="number">2</span>, <span class="number">3</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (*fp2)(<span class="number">2</span>, <span class="number">3</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+</li>
+</ul>
+</li>
+<li><p>SIG_ERR,SIG_DEL,SIG_IGN的定义，(void (*)())是强制类型转换，void(*)()是函数指针类型</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIG_ERR (void (*) ())-1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIG_DEL (void (*) ())0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIG_IGN (void (*) ())1</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -197,7 +211,7 @@
 </li>
 </ul>
 <h2 id="创建后台进程"><a href="#创建后台进程" class="headerlink" title="创建后台进程"></a>创建后台进程</h2><ul>
-<li><p>fork方式</p>
+<li><p>fork方式，四步</p>
 <ul>
 <li><p>fork创建一个子进程，父进程退出，子进程成为孤儿进程，被init进程接管</p>
 </li>
@@ -220,6 +234,10 @@
 </ul>
 </li>
 <li><p>daemon方式</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">daemon</span><span class="params">(<span class="keyword">int</span> nochdir, <span class="keyword">int</span> noclose)</span></span>;</span><br><span class="line"><span class="comment">//daemon(0, 0)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>daemon将进程从终端转移到后台</li>
+</ul>
 </li>
 <li><p>linux使用：</p>
 <ul>
@@ -228,6 +246,36 @@
 <li>通过<strong>kill -9 xxx yyy</strong>来杀死进程</li>
 <li>ps -aux 列出所有进程信息</li>
 </ul>
+</li>
+</ul>
+<h2 id="网络编程基础"><a href="#网络编程基础" class="headerlink" title="网络编程基础"></a>网络编程基础</h2><ul>
+<li><strong>TCP Server</strong>网络编程基本步骤<ul>
+<li>创建socket，指定协议</li>
+<li>绑定端口</li>
+<li>侦听端口</li>
+<li>创建新的socket</li>
+<li>recv数据</li>
+<li>send数据</li>
+<li>close连接</li>
+</ul>
+</li>
+<li><p>TCP常用套接字选项</p>
+<ul>
+<li>REUSEADDR，服务器重启可以快速重用端口，不设置端口就有WAIT_TIME，可能要等较长时间</li>
+<li>SO_REVBUF，设置接收缓冲区大小，一般大一些好</li>
+<li>SO_SNDBUF，发送缓冲区大小，太大可能造成发送时延，一直在缓冲区没有发送</li>
+</ul>
+</li>
+<li><p><strong>TCP通信</strong></p>
+<p>  <img src="C:\Users\13094\AppData\Roaming\Typora\typora-user-images\1580555019354.png" alt="1580555019354"></p>
+</li>
+<li><p><strong>tcp_server</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PORT 8111</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MESSAGE_LEN 1024</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> socket_fd;</span><br><span class="line">    socket_fd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span>(socket_fd == <span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to create socket!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> on = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> ret = setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR,&amp;on, <span class="keyword">sizeof</span>(on));</span><br><span class="line">    <span class="keyword">if</span>(ret == <span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to set socket!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    sockaddr_in local_addr;</span><br><span class="line">    local_addr.sin_family = AF_INET;</span><br><span class="line">    local_addr.sin_port = PORT;</span><br><span class="line">    local_addr.sin_addr.s_addr = INADDR_ANY;</span><br><span class="line">    bzero(&amp;local_addr.sin_zero,<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">    ret = bind(socket_fd, (sockaddr *)&amp;local_addr, <span class="keyword">sizeof</span>(sockaddr_in));</span><br><span class="line">    <span class="keyword">if</span>(ret == <span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to bind socket!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">int</span> backlog = <span class="number">10</span>;</span><br><span class="line">    ret = <span class="built_in">listen</span>(socket_fd,backlog);</span><br><span class="line">    <span class="keyword">if</span>(ret == <span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to listen socket!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    sockaddr_in remote_addr;</span><br><span class="line">    <span class="keyword">int</span> addr_len = <span class="keyword">sizeof</span>(remote_addr);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> in_buf[MESSAGE_LEN] = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">        <span class="keyword">int</span> accept_fd = accept(socket_fd,(sockaddr *)&amp;remote_addr, (<span class="keyword">socklen_t</span>*)&amp;addr_len);</span><br><span class="line">        <span class="keyword">if</span>(accept_fd == <span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to accept!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">            ret = recv(accept_fd, (<span class="keyword">void</span> *)in_buf, MESSAGE_LEN, <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span>(ret == <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"recv:"</span> &lt;&lt; in_buf &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            send(accept_fd, (<span class="keyword">void</span> *)in_buf, MESSAGE_LEN, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">close</span>(accept_fd);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(socket_fd);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><strong>tcp_client</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PORT 8111</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MESSAGE_LEN 1024</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> socket_fd = <span class="number">-1</span>;</span><br><span class="line">    socket_fd  = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span>(socket_fd &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to create socket!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sockaddr_in serveraddr;</span><br><span class="line">    serveraddr.sin_family = AF_INET;</span><br><span class="line">    serveraddr.sin_port = PORT;</span><br><span class="line">    serveraddr.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);</span><br><span class="line">    bzero(&amp;serveraddr.sin_zero,<span class="keyword">sizeof</span>(serveraddr.sin_zero));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = <span class="built_in">connect</span>(socket_fd, (sockaddr *)(&amp;serveraddr),(<span class="keyword">socklen_t</span>)<span class="keyword">sizeof</span>(serveraddr));</span><br><span class="line">    <span class="keyword">if</span>(ret == <span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to connect!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> send_buf[MESSAGE_LEN] = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    <span class="keyword">char</span> recv_buf[MESSAGE_LEN] = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="built_in">memset</span>(send_buf,<span class="keyword">sizeof</span>(send_buf),<span class="number">0</span>);</span><br><span class="line">        gets(send_buf);</span><br><span class="line">        ret = send(socket_fd, send_buf, MESSAGE_LEN, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span>(ret &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">strcmp</span>(send_buf,<span class="string">"quit"</span>)==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ret = recv(socket_fd, recv_buf, MESSAGE_LEN, <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"recv data from server:"</span> &lt;&lt; recv_buf &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">close</span>(socket_fd);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -336,7 +384,7 @@
   
   
     <a href="/2020/01/16/learn-Goo/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">learn Goo</div>
+      <div class="article-nav-title">learn Go</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -483,11 +531,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color1">服务器编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color5">Go语言</a>
+                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color3">算法分析与设计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,15 +539,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color2">面试真题题解</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color3">计算机基础知识</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color3">算法分析与设计</a>
+                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color5">Go语言</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color2">面试真题题解</a>
+                <a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag color1">服务器编程</a>
               </li>
              
               <li class="article-tag-list-item">
